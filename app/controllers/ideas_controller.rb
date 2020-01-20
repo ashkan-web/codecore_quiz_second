@@ -1,6 +1,10 @@
 class IdeasController < ApplicationController
-    before_action :find_project, only: [:edit, :show, :update, :destroy]
+    before_action :find_idea, only: [:edit, :show, :update, :destroy]
     before_action :idea_params, only: [:create, :update]
+
+    def index 
+        @ideas = Idea.all
+      end
 
     def new
 @idea = Idea.new
@@ -12,7 +16,7 @@ class IdeasController < ApplicationController
 
         if @idea.save
             flash[:success] = "Ideas created successfully"
-            redirect_to idea_path(@idea)
+            redirect_to ideas_path(@idea)
         else
             render :new
         end
@@ -35,12 +39,13 @@ class IdeasController < ApplicationController
     def destroy
         @idea.destroy
         flash[:notice] = "Idea deleted successfully"
+        redirect_to ideas_path
     end
 
     private
 
     def find_idea
-        @idea = project.find params[:id]
+        @idea = Idea.find params[:id]
     end
 
     def idea_params
