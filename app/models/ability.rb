@@ -34,8 +34,8 @@ class Ability
       idea.user == user # current_user
     end
 
-    # can(:crud, Review) do |review|
-    #   review.user == user # || answer.question.user == user
-    # end
+     can(:crud, Review) do |review|
+       review.user == user # || answer.question.user == user
+     end
   end
 end

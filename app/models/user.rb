@@ -1,6 +1,7 @@
 class User < ApplicationRecord
      # Associations
   has_many :ideas, dependent: :nullify
+  has_many :reviews , dependent: :destroy
 #   has_many :likes, dependent: :nullify
 
   has_secure_password

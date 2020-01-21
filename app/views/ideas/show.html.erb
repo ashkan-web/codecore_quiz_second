@@ -9,3 +9,34 @@
 <%= link_to 'Delete', idea_path(@idea), method: :delete, data: { confirm: 'Are you sure you want to delete this idea?' } %>
     <br />
 <% end %>
+
+<%= form_with(model: [@idea, @new_review], local: true) do |f| %>
+  <% if @new_review.errors.any? %>
+    <ul>
+      <% @new_review.errors.full_messages.each do |msg|%>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+<h3>Reviews</h3>
+<%#
+  Display all of the reviews for this product
+%>
+<% @reviews.each do |review| %>
+  <div>
+    <p>
+      <%= review.body %>
+      <% if can? :crud, review %>
+    </p>
+    <p>Reviewed by: <%= review.user.full_name %></p>
+    <%= link_to 'Delete', idea_review_path(@idea, review), method: :delete, data: { confirm: 'Are you sure that you want to delete this review?' } %>
+   <% end %>
+   </div>
+   <% end %>

@@ -21,6 +21,11 @@ class IdeasController < ApplicationController
         else
             render :new
         end
+
+        def show
+            @new_review = Review.new
+            @reviews = @idea.reviews.order(created_at: :desc)
+          end
         
     end
     
